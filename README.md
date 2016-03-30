@@ -15,7 +15,7 @@ npm install --save-dev webpack-anybar-plugin
 ### Usage
 
 ```
-var WebpackAnybarPlugin = require('webpack-anybar-plygin').default;
+var WebpackAnybarPlugin = require('webpack-anybar-plugin').default;
 
 module.exports = {
     // webpack configuration ...
