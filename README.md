@@ -1,12 +1,12 @@
 # webpack-anybar-plugin
 
-> A webpack AnyBar watch compilation status
+> A webpack AnyBar menubar status indicator
 
 [![npm version](https://img.shields.io/npm/v/webpack-anybar-plugin.svg?style=flat-square)](https://www.npmjs.com/package/webpack-anybar-plugin)
 
 ## Install
 
-Install the following [fork](https://github.com/sfsam/AnyBar) of [AnyBar](https://github.com/tonsky/AnyBar).
+Install [AnyBar](https://github.com/tonsky/AnyBar), an OS X menubar status indicator, or any of its fork such as [this one](https://github.com/sfsam/AnyBar) which adds the ability to define custom colors and display text.
 
 ```
 npm install --save-dev webpack-anybar-plugin
@@ -21,13 +21,12 @@ module.exports = {
     // webpack configuration ...
     plugins: [
         new WebpackAnybarPlugin({
-            colors: {
-                error: '<color name or hex code>',      // default: red
-                running: '<color name or hex code>',    // default: orange
-                success: '<color name or hex code>'     // default: green
+            port: <port number>,                        // default: AnyBar's default port
+            status: {
+                error: '<color name or function>',      // default: 'red'
+                pending: '<color name or function>',    // default: 'orange'
+                success: '<color name or function>'     // default: 'green'
             },
-            port: <port number>,                        // default: anybar's default port
-            text: '<text>'                              // default: null
         })
     ]
 }

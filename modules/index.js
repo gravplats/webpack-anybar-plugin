@@ -3,37 +3,32 @@ import defaults from 'lodash.defaultsdeep';
 
 
 const DefaultOptions = {
-    colors: {
-        error: 'red',
-        running: 'orange',
-        success: 'green'
-    },
     port: null,
-    text: null
+    status: {
+        error: 'red',
+        pending: 'orange',
+        success: 'green'
+    }
 };
 
 function WebpackAnybarPlugin(options) {
     this.options = defaults({}, options, DefaultOptions);
 
-    const { port, text } = this.options;
-    this.broadcast = (color) => {
-        const status = text !== null
-            ? color + ' ' + text
-            : color;
-
-        return anybar(status, { port });
+    const { port } = this.options;
+    this.broadcast = (status) => {
+        return anybar(typeof status === 'function' ? status() : status, { port });
     };
 }
 
 WebpackAnybarPlugin.prototype.apply = function(compiler) {
-    const { colors } = this.options;
+    const { status } = this.options;
     compiler.plugin('watch-run', (watching, callback) => {
-        this.broadcast(colors.running);
+        this.broadcast(status.pending);
         callback();
     });
 
     compiler.plugin('done', (stats) => {
-        this.broadcast(stats.hasErrors() ? colors.error : colors.success);
+        this.broadcast(stats.hasErrors() ? status.error : status.success);
     });
 };
 
