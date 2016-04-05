@@ -21,11 +21,11 @@ module.exports = {
     // webpack configuration ...
     plugins: [
         new WebpackAnybarPlugin({
-            port: <port number>,                        // default: AnyBar's default port
+            port: <port number>,                           // default: AnyBar's default port
             status: {
-                error: '<color name or function>',      // default: 'red'
-                pending: '<color name or function>',    // default: 'orange'
-                success: '<color name or function>'     // default: 'green'
+                error: '<color or function(stats)>',       // default: 'red'
+                pending: '<color or function(compiler)>',  // default: 'orange'
+                success: '<color or function(stats)>'      // default: 'green'
             },
         })
     ]
