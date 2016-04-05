@@ -6,7 +6,7 @@
 
 ## Install
 
-Install [AnyBar](https://github.com/tonsky/AnyBar), an OS X menubar status indicator, or any of its fork such as [this one](https://github.com/sfsam/AnyBar) which adds the ability to define custom colors and display text.
+Install [AnyBar](https://github.com/tonsky/AnyBar), an OS X menubar status indicator, or any of its forks such as [this one](https://github.com/sfsam/AnyBar) which adds the ability to define custom colors and display text.
 
 ```
 npm install --save-dev webpack-anybar-plugin
