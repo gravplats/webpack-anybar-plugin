@@ -1,6 +1,6 @@
 {
   "extends": [
-    "billogram"
+    "coderesque"
   ],
   "globals": {
     "require": true,
