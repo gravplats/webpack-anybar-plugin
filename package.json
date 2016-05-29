@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "anybar": "^2.0.1",
-    "lodash.defaultsdeep": "^4.3.2"
+    "lodash.defaultsdeep": "^4.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
