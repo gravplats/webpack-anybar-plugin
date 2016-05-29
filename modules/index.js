@@ -1,5 +1,6 @@
 import anybar from 'anybar';
 import defaults from 'lodash.defaultsdeep';
+import path from 'path';
 
 
 const DefaultOptions = {
@@ -12,7 +13,15 @@ const DefaultOptions = {
 };
 
 function WebpackAnybarPlugin(options) {
-    this.options = defaults({}, options, DefaultOptions);
+    let config;
+
+    try {
+        config = require(path.resolve(process.cwd(), 'anybar.config.js'));
+    } catch (e) {
+        config = {};
+    }
+
+    this.options = defaults({}, config, options, DefaultOptions);
 
     const { port } = this.options;
     this.broadcast = (status, info) => {

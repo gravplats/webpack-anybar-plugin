@@ -32,6 +32,8 @@ module.exports = {
 }
 ```
 
+It's also possible to specify options in `anybar.config.js`. Adding `anybar.config.js` to `.gitignore` allows different team members to use different options.
+
 ## License
 
 MIT

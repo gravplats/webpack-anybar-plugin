@@ -1,3 +1,9 @@
 {
-  "extends": ["billogram"]
+  "extends": [
+    "billogram"
+  ],
+  "globals": {
+    "require": true,
+    "process": true
+  }
 }
