@@ -18,8 +18,8 @@
     "lodash.defaultsdeep": "^4.4.0"
   },
   "devDependencies": {
-    "eslint": "^2.11.0",
-    "eslint-config-coderesque": "^2.1.0"
+    "eslint": "^3.13.0",
+    "eslint-config-coderesque": "^3.0.1"
   },
   "scripts": {
     "eslint": "./scripts/run-eslint.sh",

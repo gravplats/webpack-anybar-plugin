@@ -1,9 +1,3 @@
 {
-  "extends": [
-    "coderesque"
-  ],
-  "globals": {
-    "require": true,
-    "process": true
-  }
+  "extends": ["coderesque/node"]
 }
