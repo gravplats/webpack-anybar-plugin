@@ -25,6 +25,6 @@
     "eslint": "./scripts/run-eslint.sh",
     "pretest": "./scripts/run-eslint.sh",
     "test": "echo 'No tests :-('",
-    "preversion": "npm test"
+    "preversion": "yarn test"
   }
 }
