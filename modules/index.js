@@ -1,6 +1,6 @@
-import anybar from 'anybar';
-import defaults from 'lodash.defaultsdeep';
-import path from 'path';
+const anybar = require('anybar');
+const defaults = require('lodash.defaultsdeep');
+const path = require('path');
 
 
 const DefaultOptions = {
@@ -41,4 +41,4 @@ WebpackAnybarPlugin.prototype.apply = function(compiler) {
     });
 };
 
-export default WebpackAnybarPlugin;
+module.exports = WebpackAnybarPlugin;
