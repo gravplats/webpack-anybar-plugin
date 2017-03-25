@@ -14,12 +14,12 @@
     "modules"
   ],
   "dependencies": {
-    "anybar": "^2.0.1",
-    "lodash.defaultsdeep": "^4.4.0"
+    "anybar": "2.0.1",
+    "lodash.defaultsdeep": "4.6.0"
   },
   "devDependencies": {
-    "eslint": "^3.13.0",
-    "eslint-config-coderesque": "^3.0.1"
+    "eslint": "3.18.0",
+    "eslint-config-coderesque": "3.0.1"
   },
   "scripts": {
     "eslint": "./scripts/run-eslint.sh",
