@@ -1,10 +1,17 @@
 const anybar = require('anybar');
+const chalk = require('chalk');
+const cp = require('child_process');
 const defaults = require('lodash.defaultsdeep');
+const fs = require('fs');
 const path = require('path');
 
 
-const DefaultOptions = {
-    port: null,
+const configFilename = 'anybar.config.js';
+
+const defaultOptions = {
+    applicationPath: '/Applications/AnyBar.app',
+    autoStart: true,
+    port: 1738,
     status: {
         error: 'red',
         pending: 'orange',
@@ -12,18 +19,52 @@ const DefaultOptions = {
     }
 };
 
-function WebpackAnybarPlugin(options) {
-    let config;
-
+function getAnyBarConfig() {
     try {
-        config = require(path.resolve(process.cwd(), 'anybar.config.js'));
+        return fs.existsSync(configFilename)
+            ? require(path.resolve(process.cwd(), configFilename))
+            : {};
     } catch (e) {
-        config = {};
+        return {};
     }
+}
 
-    this.options = defaults({}, config, options, DefaultOptions);
+function WebpackAnybarPlugin(options) {
+    this.options = defaults({}, getAnyBarConfig(), options, defaultOptions);
+    const { applicationPath, autoStart, port } = this.options;
 
-    const { port } = this.options;
+    /* eslint-disable no-console */
+    if (autoStart) {
+        try {
+            // is AnyBar running and listening to the specified port?
+            cp.exec(`lsof -ti udp:${port}`, function lsofCallback(err) {
+                // 'lsof' returns an error if it cannot find what it's looking for.
+                if (err !== null) {
+                    if (fs.existsSync(applicationPath)) {
+                        return cp.exec(`ANYBAR_PORT=${port} open -na ${applicationPath}`, function openAnyBarCallback(err) {
+                            if (err !== null) {
+                                return;
+                            }
+
+                            console.log(`webpack-anybar-plugin: Starting AnyBar on port ${port}`);
+                        });
+                    } else {
+                        console.log(
+                            chalk.cyan(
+                                `webpack-anybar-plugin: Unable to find AnyBar application at "${applicationPath}".` +
+                                ' Download it from "https://github.com/sfsam/AnyBar" for a better webpack experience. ' +
+                                'See "https://github.com/mrydengren/webpack-anybar-plugin" for configuration options.'
+                            )
+                        );
+                    }
+                } else {
+                    console.log(`webpack-anybar-plugin: AnyBar is listening on port ${port}`);
+                }
+            });
+        } catch (e) {} // eslint-disable-line no-empty
+    }
+    /* eslint-enable no-console */
+
     this.broadcast = (status, info) => {
         return anybar(typeof status === 'function' ? status(info) : status, { port });
     };
