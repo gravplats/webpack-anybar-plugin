@@ -21,7 +21,9 @@ module.exports = {
     // webpack configuration ...
     plugins: [
         new WebpackAnybarPlugin({
-            port: <port number>,                           // default: AnyBar's default port
+            applicationPath: '<absolute path to AnyBar>',  // default: '/Applications/AnyBar.app'
+            autoStart: <boolean>,                          // default: true
+            port: <port number>,                           // default: 1738
             status: {
                 error: '<color or function(stats)>',       // default: 'red'
                 pending: '<color or function(compiler)>',  // default: 'orange'
@@ -36,7 +38,9 @@ It's also possible to specify options in `anybar.config.js`. Adding `anybar.conf
 
 ```
 module.exports = {
-    port: <port number>,                           // default: AnyBar's default port
+    applicationPath: '<absolute path to AnyBar>',  // default: '/Applications/AnyBar.app'
+    autoStart: <boolean>,                          // default: true
+    port: <port number>,                           // default: 1738
     status: {
         error: '<color or function(stats)>',       // default: 'red'
         pending: '<color or function(compiler)>',  // default: 'orange'
