@@ -64,10 +64,6 @@ function WebpackAnybarPlugin(options) {
         } catch (e) {} // eslint-disable-line no-empty
     }
     /* eslint-enable no-console */
-
-    this.broadcast = (status, info) => {
-        return anybar(typeof status === 'function' ? status(info) : status, { port });
-    };
 }
 
 WebpackAnybarPlugin.prototype.apply = function(compiler) {
@@ -80,6 +76,11 @@ WebpackAnybarPlugin.prototype.apply = function(compiler) {
     compiler.plugin('done', (stats) => {
         this.broadcast(stats.hasErrors() ? status.error : status.success, stats);
     });
+};
+
+WebpackAnybarPlugin.prototype.broadcast = function(status, info) {
+    const { port } = this.options;
+    return anybar(typeof status === 'function' ? status(info) : status, { port });
 };
 
 module.exports = WebpackAnybarPlugin;
