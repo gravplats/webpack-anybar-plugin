@@ -31,8 +31,30 @@ function getAnyBarConfig() {
 
 function WebpackAnybarPlugin(options) {
     this.options = defaults({}, getAnyBarConfig(), options, defaultOptions);
-    const { applicationPath, autoStart, port } = this.options;
+}
 
+WebpackAnybarPlugin.prototype.apply = function(compiler) {
+    this.checkForAnyBarApp();
+
+    compiler.plugin('watch-run', (compiler, callback) => {
+        const { status } = this.options;
+        this.broadcast(status.pending, compiler);
+        callback();
+    });
+
+    compiler.plugin('done', (stats) => {
+        const { status } = this.options;
+        this.broadcast(stats.hasErrors() ? status.error : status.success, stats);
+    });
+};
+
+WebpackAnybarPlugin.prototype.broadcast = function(status, info) {
+    const { port } = this.options;
+    return anybar(typeof status === 'function' ? status(info) : status, { port });
+};
+
+WebpackAnybarPlugin.prototype.checkForAnyBarApp = function() {
+    const { applicationPath, autoStart, port } = this.options;
     /* eslint-disable no-console */
     if (autoStart) {
         try {
@@ -64,23 +86,6 @@ function WebpackAnybarPlugin(options) {
         } catch (e) {} // eslint-disable-line no-empty
     }
     /* eslint-enable no-console */
-}
-
-WebpackAnybarPlugin.prototype.apply = function(compiler) {
-    const { status } = this.options;
-    compiler.plugin('watch-run', (compiler, callback) => {
-        this.broadcast(status.pending, compiler);
-        callback();
-    });
-
-    compiler.plugin('done', (stats) => {
-        this.broadcast(stats.hasErrors() ? status.error : status.success, stats);
-    });
-};
-
-WebpackAnybarPlugin.prototype.broadcast = function(status, info) {
-    const { port } = this.options;
-    return anybar(typeof status === 'function' ? status(info) : status, { port });
 };
 
 module.exports = WebpackAnybarPlugin;
