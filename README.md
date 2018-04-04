@@ -4,6 +4,8 @@
 
 [![npm version](https://img.shields.io/npm/v/webpack-anybar-plugin.svg?style=flat-square)](https://www.npmjs.com/package/webpack-anybar-plugin)
 
+Use version 4 of this project for the webpack tapable plugin API (introduced in webpack 4). Use version 3 for the older webpack plugin syntax.
+
 ## Install
 
 Install [AnyBar](https://github.com/tonsky/AnyBar), an OS X menubar status indicator, or any of its forks such as [this one](https://github.com/sfsam/AnyBar) which adds the ability to define custom colors and display text.
