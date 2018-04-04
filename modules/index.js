@@ -34,7 +34,7 @@ function WebpackAnybarPlugin(options) {
 }
 
 WebpackAnybarPlugin.prototype.apply = function(compiler) {
-    compiler.plugin('environment', () => {
+    compiler.hooks.environment.tap('WebpackAnybarPlugin', () => {
         const { applicationPath, autoStart, port } = this.options;
         /* eslint-disable no-console */
         if (autoStart) {
@@ -69,13 +69,13 @@ WebpackAnybarPlugin.prototype.apply = function(compiler) {
         /* eslint-enable no-console */
     });
 
-    compiler.plugin('watch-run', (compiler, callback) => {
+    compiler.hooks.watchRun.tapAsync('WebpackAnybarPlugin', (compiler, callback) => {
         const { status } = this.options;
         this.broadcast(status.pending, compiler);
         callback();
     });
 
-    compiler.plugin('done', (stats) => {
+    compiler.hooks.done.tap('WebpackAnybarPlugin', (stats) => {
         const { status } = this.options;
         this.broadcast(stats.hasErrors() ? status.error : status.success, stats);
     });
