@@ -30,7 +30,12 @@ function getAnyBarConfig() {
 }
 
 function WebpackAnybarPlugin(options) {
-    this.options = defaults({}, getAnyBarConfig(), options, defaultOptions);
+    const context = typeof options === 'string'
+        ? options
+        : null;
+
+    const config = getAnyBarConfig();
+    this.options = defaults({}, context !== null ? config[context] : config, options, defaultOptions);
 }
 
 WebpackAnybarPlugin.prototype.apply = function(compiler) {
