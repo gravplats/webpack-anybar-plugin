@@ -16,6 +16,8 @@ yarn add --dev webpack-anybar-plugin
 
 ### Usage
 
+Passing options to the plugin.
+
 ```
 const WebpackAnybarPlugin = require('webpack-anybar-plugin');
 
@@ -30,10 +32,23 @@ module.exports = {
                 error: '<color or function(stats)>',       // default: 'red'
                 pending: '<color or function(compiler)>',  // default: 'orange'
                 success: '<color or function(stats)>'      // default: 'green'
-            }
-        })
-    ]
-}
+            },
+        }),
+    ],
+};
+```
+
+Passing a context name to the plugin.
+
+```
+const WebpackAnybarPlugin = require('webpack-anybar-plugin');
+
+module.exports = {
+    // webpack configuration ...
+    plugins: [
+        new WebpackAnybarPlugin('context'),
+    ],
+};
 ```
 
 It's also possible to specify options in `anybar.config.js`. Adding `anybar.config.js` to `.gitignore` allows different team members to use different options. Options defined in `anybar.config.js` takes precedence to options defined in `webpack.config.js`.
@@ -48,6 +63,23 @@ module.exports = {
         pending: '<color or function(compiler)>',  // default: 'orange'
         success: '<color or function(stats)>'      // default: 'green'
     }
+};
+```
+
+When using a context.
+
+```
+module.exports = {
+    context: {
+        applicationPath: '<absolute path to AnyBar>',  // default: '/Applications/AnyBar.app'
+        autoStart: <boolean>,                          // default: true
+        port: <port number>,                           // default: 1738
+        status: {
+            error: '<color or function(stats)>',       // default: 'red'
+            pending: '<color or function(compiler)>',  // default: 'orange'
+            success: '<color or function(stats)>'      // default: 'green'
+        },
+    },
 };
 ```
 
