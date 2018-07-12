@@ -1,6 +1,6 @@
 {
   "name": "webpack-anybar-plugin",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "A webpack AnyBar watch notifier",
   "license": "MIT",
   "repository": "mrydengren/webpack-anybar-plugin",
